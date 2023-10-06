@@ -43,7 +43,6 @@ export const UserController = {
       const salt = await bcrypt.genSalt();
       const passwordHash = await bcrypt.hash(req.body.password, salt);
       req.body.password = passwordHash;
-      console.log(req.body);
       const data = await UserService.add(req.body);
       return httpResponse.CREATED(res, data);
     } catch (error) {
@@ -55,16 +54,18 @@ export const UserController = {
     try {
       const user = await UserService.login(req.body);
       if (!user) {
-        return httpResponse.NOT_FOUND(res, "user not found");
+        return httpResponse.NOT_FOUND(
+          res,
+          "user not found",
+          "check your email"
+        );
       }
-
       const check = await bcrypt.compare(req.body.password, user.password);
-      console.log("some work");
-      console.log(check);
       if (check) {
-        const tokenSecret = "it is secret key for token";
-        const accessToken = jwt.sign({ user: user }, tokenSecret);
+        const accessToken = jwt.sign({ user: user }, config.env.jwtSecret);
         return httpResponse.SUCCESS(res, accessToken);
+      } else {
+        return httpResponse.FORBIDDEN(res, "enter correct password");
       }
     } catch (error) {
       return httpResponse.NOT_FOUND(res, "No user exist");
