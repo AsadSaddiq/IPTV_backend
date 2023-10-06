@@ -6,15 +6,26 @@ import { UserController } from "../controllers/index.js";
 const router = express.Router();
 
 router.get("/", UserController.getAll); //get all user
-router.post("/registration", UserController.add); //register a user
-router.post("/login", UserController.loginUser); //login
+router.post(
+  "/registration",
+  validate(UserValidationSchema.add),
+  UserController.add
+); //register a user
+router.post(
+  "/login",
+  validate(UserValidationSchema.login),
+  UserController.loginUser
+); //login
 router.get("/:id", UserController.getById); //get user by id
 router.delete("/:id", UserController.delete); //delete user by id
-router.patch("/:id", UserController.update); //update user by id
+router.patch(
+  "/:id",
+  validate(UserValidationSchema.update),
+  UserController.update
+); //update user by id
 
 router.get("/:id/streams", UserController.add); //get all streams of a user by using id
 router.get("/:id/streams/:streamId", UserController.add); //get stream of a use by using id and stream id
-
 router.delete("/:id/stream/:streamId", UserController.add); //delete stream of a user by using id and stream id
 
 // router.get("/", authenticate, UserController.getAll);
