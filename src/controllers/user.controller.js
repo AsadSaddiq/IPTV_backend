@@ -15,8 +15,23 @@ export const UserController = {
   },
   getById: async (req, res) => {
     try {
-      console.log(req.params.id);
       const data = await UserService.getById(req.params.id);
+      return httpResponse.SUCCESS(res, data);
+    } catch (error) {
+      return httpResponse.INTERNAL_SERVER_ERROR(res, error);
+    }
+  },
+  delete: async (req, res) => {
+    try {
+      const data = await UserService.delete(req.params.id);
+      return httpResponse.SUCCESS(res, data);
+    } catch (error) {
+      return httpResponse.INTERNAL_SERVER_ERROR(res, error);
+    }
+  },
+  update: async (req, res) => {
+    try {
+      const data = await UserService.delete(req.params.id, req.body);
       return httpResponse.SUCCESS(res, data);
     } catch (error) {
       return httpResponse.INTERNAL_SERVER_ERROR(res, error);

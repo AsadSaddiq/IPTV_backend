@@ -12,6 +12,10 @@ export const UserService = {
     return UserModel.create({ ...body });
   },
 
+  delete: async (id) => {
+    return UserModel.findByIdAndDelete(id);
+  },
+
   login: async (body) => {
     try {
       return UserModel.findOne({ email: body.email });
