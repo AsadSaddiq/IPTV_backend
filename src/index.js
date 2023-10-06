@@ -1,14 +1,14 @@
 import express from "express";
 import loader from "./loader/index.js";
+import config from "./config/index.js";
 
 async function startServer() {
-  const port = 3000;
   const app = express();
 
   await loader(app);
 
-  app.listen(port, () => {
-    console.log(`app is running on http://localhost:${port} 😎`);
+  app.listen(config.env.port, () => {
+    console.log(`app is running on http://localhost:${config.env.port} 😎`);
   });
   process.on("uncaughtException", (err) => {
     console.log("uncaughtException! Shutting Down the Server...");
