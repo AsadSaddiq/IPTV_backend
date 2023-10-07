@@ -23,7 +23,6 @@ const pick = (object, keys) => {
     if (object && Object.prototype.hasOwnProperty.call(object, key)) {
       obj[key] = object[key];
     }
-    console.log(obj);
     return obj;
   }, {});
 };

@@ -7,7 +7,7 @@ async function startServer() {
 
   await loader(app);
 
-  app.listen(config.env.port, () => {
+  const server = app.listen(config.env.port, () => {
     console.log(`app is running on http://localhost:${config.env.port} 😎`);
   });
   process.on("uncaughtException", (err) => {
