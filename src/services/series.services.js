@@ -1,4 +1,4 @@
-import { SeriesModel } from "../models/index.js";
+import { SeriesModel, SeasonModel } from "../models/index.js";
 
 export const seriesServices = {
   add: async (data) => {
@@ -15,5 +15,8 @@ export const seriesServices = {
   },
   delete: async (id) => {
     return SeriesModel.findByIdAndDelete(id);
+  },
+  getSeasonSeries: async (id) => {
+    return SeasonModel.find({ series_id: id });
   },
 };

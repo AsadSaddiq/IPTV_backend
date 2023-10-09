@@ -12,5 +12,3 @@ route.delete("/:id", episodeController.delete); // => Delete an episode by id
 route.get("/:id/streams", episodeController.getAllEStream); // => Get all streams of an episode by episode id
 
 export default route;
-
-// GET /episodes/:id/streams - Get all streams of an episode by episode id
