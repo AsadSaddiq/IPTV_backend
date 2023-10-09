@@ -43,4 +43,12 @@ export const seasonController = {
       return httpResponse.INTERNAL_SERVER_ERROR(res, error);
     }
   },
+  getSeasonEpi: async (req, res) => {
+    try {
+      const data = await seasonServices.getSeasonEpi(req.params.id);
+      return httpResponse.SUCCESS(res, data);
+    } catch (error) {
+      return httpResponse.INTERNAL_SERVER_ERROR(res, error);
+    }
+  },
 };
