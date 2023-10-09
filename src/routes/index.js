@@ -5,6 +5,7 @@ import seriesRoute from "./series.routes.js";
 import seasonRoute from "./season.routes.js";
 import episodeRoute from "./episode.routes.js";
 import streamsRouter from "./streams.routes.js";
+import genSeries from "./gen.series.routes.js";
 
 // const protectedRouter = express.Router();
 const unProtectedRouter = express.Router();
@@ -15,5 +16,6 @@ unProtectedRouter.use("/series", seriesRoute);
 unProtectedRouter.use("/seasons", seasonRoute);
 unProtectedRouter.use("/episodes", episodeRoute);
 unProtectedRouter.use("/streams", streamsRouter);
+unProtectedRouter.use("/genres/series", genSeries);
 
 export { unProtectedRouter };
