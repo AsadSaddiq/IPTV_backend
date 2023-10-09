@@ -23,12 +23,9 @@ router.patch(
   validate(UserValidationSchema.update),
   UserController.update
 ); //update user by id
+router.get("/:id/streams", UserController.userStream); //get all streams of a user by using id
+router.get("/:userId/streams/:streamId", UserController.getUSid); //get stream of a use by using id and stream id
 
-router.get("/:id/streams", UserController.add); //get all streams of a user by using id
-router.get("/:id/streams/:streamId", UserController.add); //get stream of a use by using id and stream id
-router.delete("/:id/stream/:streamId", UserController.add); //delete stream of a user by using id and stream id
-
-// router.get("/", authenticate, UserController.getAll);
-// router.post("/", validate(UserValidationSchema.add), UserController.add);
+router.delete("/:userId/stream/:streamId", UserController.deleteUSid); //delete stream of a user by using id and stream id
 
 export default router;
