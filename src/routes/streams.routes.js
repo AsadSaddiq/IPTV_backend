@@ -16,5 +16,3 @@ route.get("/:id/episode/season/series", streamController.getSESS); // => Get the
 route.get("/:id/episode/season/series/genre", streamController.getSESGG); //  => Get the genre of a series of a season of an episode of a stream by stream id
 
 export default route;
-
-// GET /streams/:id/episode/season/series/genre - Get the genre of a series of a season of an episode of a stream by stream id

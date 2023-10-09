@@ -9,6 +9,7 @@ route.get("/", episodeController.getAll); // => Get all episodes
 route.get("/:id", episodeController.getOne); // => Get an episode by id
 route.patch("/:id", validate(episodeSchema.update), episodeController.update); // => Update an episode by id
 route.delete("/:id", episodeController.delete); // => Delete an episode by id
+route.get("/:id/streams", episodeController.getAllEStream); // => Get all streams of an episode by episode id
 
 export default route;
 

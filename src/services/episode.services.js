@@ -1,4 +1,4 @@
-import { EpisodeModel } from "../models/index.js";
+import { EpisodeModel, SeasonModel, StreamModel } from "../models/index.js";
 
 export const episodeServices = {
   add: async (data) => {
@@ -15,5 +15,8 @@ export const episodeServices = {
   },
   delete: async (id) => {
     return EpisodeModel.findByIdAndDelete(id);
+  },
+  getAllEStream: async (id) => {
+    return StreamModel.find({ episode_id: id });
   },
 };
