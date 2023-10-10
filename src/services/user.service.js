@@ -6,8 +6,18 @@ export const UserService = {
   getAll: async () => {
     return UserModel.find();
   },
+  // getById: async (id) => {
+  //   return UserModel.findById(id);
+  // },
+
   getById: async (id) => {
-    return UserModel.findById(id);
+    return UserModel.aggregate([
+      {
+        $match: {
+          _id: new mongoose.Types.ObjectId(id),
+        },
+      },
+    ]);
   },
 
   add: async (body) => {
