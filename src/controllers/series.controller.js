@@ -50,4 +50,12 @@ export const seriesController = {
       return httpResponse.INTERNAL_SERVER_ERROR(res, error);
     }
   },
+  getSeriesSeasonEpi: async (req, res) => {
+    try {
+      const data = await seriesServices.getSeriesSeasonEpi(req.params.id);
+      return httpResponse.SUCCESS(res, data);
+    } catch (error) {
+      return httpResponse.INTERNAL_SERVER_ERROR(res, error.message);
+    }
+  },
 };

@@ -10,7 +10,7 @@ route.get("/:id", seriesController.getOne); //  => Get a series by id
 route.patch("/:id", validate(SeriesSchema.add), seriesController.update); //  => Update a series by id
 route.delete("/:id", seriesController.delete); //  => Delete a series by id
 route.get("/:id/season", seriesController.getSeasonSeries); //  => Get all seasons of a series by series id
-route.get("/:id/seasons/episodes");
+route.get("/:id/seasons/episodes", seriesController.getSeriesSeasonEpi); // => Get all episodes of a series by series id
 
 export default route;
 
