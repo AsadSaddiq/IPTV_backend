@@ -11,7 +11,7 @@ export const episodeSchema = {
   },
   update: {
     body: Joi.object().keys({
-      season_id: Joi.number(),
+      season_id: Joi.string(),
       name: Joi.string(),
       description: Joi.string(),
       thumbnail_id: Joi.number(),

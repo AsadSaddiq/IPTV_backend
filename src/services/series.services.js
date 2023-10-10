@@ -1,4 +1,5 @@
 import { SeriesModel, SeasonModel, EpisodeModel } from "../models/index.js";
+import mongoose from "mongoose";
 
 export const seriesServices = {
   add: async (data) => {
@@ -7,9 +8,19 @@ export const seriesServices = {
   getAll: async () => {
     return SeriesModel.find();
   },
+  // getOne: async (id) => {
+  //   return SeriesModel.findById(id);
+  // },
   getOne: async (id) => {
-    return SeriesModel.findById(id);
+    return SeriesModel.aggregate([
+      {
+        $match: {
+          _id: new mongoose.Types.ObjectId(id),
+        },
+      },
+    ]);
   },
+
   update: async (id, data) => {
     return SeriesModel.findByIdAndUpdate(id, data, { new: true });
   },

@@ -23,7 +23,7 @@ export const streamController = {
       const data = await streamServices.getOne(req.params.id);
       return httpResponse.SUCCESS(res, data);
     } catch (error) {
-      return httpResponse.INTERNAL_SERVER_ERROR(res, error);
+      return httpResponse.INTERNAL_SERVER_ERROR(res, error.message);
     }
   },
   update: async (req, res) => {

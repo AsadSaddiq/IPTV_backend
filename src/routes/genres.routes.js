@@ -14,6 +14,7 @@ route.patch(
   genreController.update
 ); //  ==> Update a genre by id
 route.delete("/:id", genreController.delete); //  ==> Delete a genre by id
+route.get("/:id/series");
 
 export default route;
 

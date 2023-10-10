@@ -13,5 +13,3 @@ route.get("/:id/season", seriesController.getSeasonSeries); //  => Get all seaso
 route.get("/:id/seasons/episodes", seriesController.getSeriesSeasonEpi); // => Get all episodes of a series by series id
 
 export default route;
-
-// GET /series/:id/seasons/episodes - Get all episodes of a series by series id
