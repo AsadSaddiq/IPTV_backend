@@ -10,7 +10,6 @@ route.get("/", seasonController.getAll); // => Get all seasons
 route.get("/:id", seasonController.getOne); // => Get a season by id
 route.patch("/:id", seasonController.update); // => Update a season by id
 route.delete("/:id", seasonController.delete); // => Delete a season by id
+route.get("/:id/episodes", seasonController.getSeasonEpi); // => Get all episodes of a season by season id
 
 export default route;
-
-// GET /seasons/:id/episodes - Get all episodes of a season by season id

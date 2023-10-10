@@ -1,11 +1,10 @@
-import { seasonServices } from "../services/index.js";
+import { genresSeries } from "../services/genSeries.js";
 import { httpResponse } from "../utils/index.js";
 
-export const seasonController = {
+export const genresSeriesController = {
   add: async (req, res) => {
     try {
-      const data = await seasonServices.add(req.body);
-      console.log(data);
+      const data = await genresSeries.add(req.body);
       return httpResponse.CREATED(res, data);
     } catch (error) {
       return httpResponse.INTERNAL_SERVER_ERROR(res, error);
@@ -13,23 +12,23 @@ export const seasonController = {
   },
   getAll: async (req, res) => {
     try {
-      const data = await seasonServices.getAll();
+      const data = await genresSeries.getAll();
+      return httpResponse.SUCCESS(res, data);
+    } catch (error) {
+      return httpResponse.INTERNAL_SERVER_ERROR(res, error.message);
+    }
+  },
+  getOne: async (req, res) => {
+    try {
+      const data = await genresSeries.getOne(req.params.id);
       return httpResponse.SUCCESS(res, data);
     } catch (error) {
       return httpResponse.INTERNAL_SERVER_ERROR(res, error);
     }
   },
-  getOne: async (req, res) => {
-    try {
-      const data = await seasonServices.getOne(req.params.id);
-      return httpResponse.SUCCESS(res, data);
-    } catch (error) {
-      return httpResponse.INTERNAL_SERVER_ERROR(res, error.data);
-    }
-  },
   update: async (req, res) => {
     try {
-      const data = await seasonServices.update(req.params.id, req.body);
+      const data = await genresSeries.update(req.params.id, req.body);
       return httpResponse.SUCCESS(res, data);
     } catch (error) {
       return httpResponse.INTERNAL_SERVER_ERROR(res, error);
@@ -37,15 +36,7 @@ export const seasonController = {
   },
   delete: async (req, res) => {
     try {
-      const data = await seasonServices.delete(req.params.id);
-      return httpResponse.SUCCESS(res, data);
-    } catch (error) {
-      return httpResponse.INTERNAL_SERVER_ERROR(res, error);
-    }
-  },
-  getSeasonEpi: async (req, res) => {
-    try {
-      const data = await seasonServices.getSeasonEpi(req.params.id);
+      const data = await genresSeries.delete(req.params.id);
       return httpResponse.SUCCESS(res, data);
     } catch (error) {
       return httpResponse.INTERNAL_SERVER_ERROR(res, error);

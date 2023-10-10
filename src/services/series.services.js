@@ -1,4 +1,4 @@
-import { SeriesModel } from "../models/index.js";
+import { SeriesModel, SeasonModel, EpisodeModel } from "../models/index.js";
 
 export const seriesServices = {
   add: async (data) => {
@@ -15,5 +15,24 @@ export const seriesServices = {
   },
   delete: async (id) => {
     return SeriesModel.findByIdAndDelete(id);
+  },
+
+  // season series episode
+  getSeasonSeries: async (id) => {
+    return SeasonModel.find({ series_id: id });
+  },
+
+  getSeriesSeasonEpi: async (id) => {
+    const season = await SeasonModel.findOne({ series_id: id });
+    console.log(season);
+    if (!season) {
+      return "no season found";
+    }
+    const episode = await EpisodeModel.find({ season_id: season._id });
+    console.log(episode);
+    if (!episode) {
+      return "no episode found";
+    }
+    return episode;
   },
 };

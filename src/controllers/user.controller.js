@@ -71,4 +71,36 @@ export const UserController = {
       return httpResponse.NOT_FOUND(res, "No user exist");
     }
   },
+  userStream: async (req, res) => {
+    try {
+      console.log(req.params.id);
+      const data = await UserService.userStream(req.params.id);
+      return httpResponse.SUCCESS(res, data);
+    } catch (error) {
+      return httpResponse.INTERNAL_SERVER_ERROR(res, error);
+    }
+  },
+  getUSid: async (req, res) => {
+    try {
+      const data = await UserService.getUSid(
+        req.params.userId,
+        req.params.streamId
+      );
+
+      return httpResponse.SUCCESS(res, data);
+    } catch (error) {
+      return httpResponse.INTERNAL_SERVER_ERROR(res, error.message);
+    }
+  },
+  deleteUSid: async (req, res) => {
+    try {
+      const data = await UserService.deleteUSid(
+        req.params.userId,
+        req.params.streamId
+      );
+      return httpResponse.SUCCESS(res, data);
+    } catch (error) {
+      return httpResponse.INTERNAL_SERVER_ERROR(res, error);
+    }
+  },
 };

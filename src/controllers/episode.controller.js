@@ -42,4 +42,12 @@ export const episodeController = {
       return httpResponse.INTERNAL_SERVER_ERROR(res, error);
     }
   },
+  getAllEStream: async (req, res) => {
+    try {
+      const data = await episodeServices.getAllEStream(req.params.id);
+      return httpResponse.SUCCESS(res, data);
+    } catch (error) {
+      return httpResponse.INTERNAL_SERVER_ERROR(res, error);
+    }
+  },
 };
