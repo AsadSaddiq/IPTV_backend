@@ -1,6 +1,9 @@
 import { UserModel } from "../models/index.js";
 import { StreamModel } from "../models/index.js";
 import mongoose from "mongoose";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+import config from "../config/index.js";
 
 export const UserService = {
   getAll: async () => {
@@ -21,6 +24,9 @@ export const UserService = {
   },
 
   add: async (body) => {
+    const salt = await bcrypt.genSalt(10);
+    const passwordHash = await bcrypt.hash(body.password, salt);
+    body.password = passwordHash;
     return UserModel.create({ ...body });
   },
 
@@ -29,10 +35,16 @@ export const UserService = {
   },
 
   login: async (body) => {
-    try {
-      return UserModel.findOne({ email: body.email });
-    } catch (error) {
-      return "no user exist";
+    const user = UserModel.findOne({ email: body.email });
+    if (!user) {
+      return "enter correct email";
+    }
+    const check = await bcrypt.compare(body.password, user.password);
+    if (check) {
+      const accessToken = jwt.sign({ user: user }, config.env.jwtSecret);
+      return accessToken;
+    } else {
+      return "enter correct password";
     }
   },
   userStream: async (id) => {

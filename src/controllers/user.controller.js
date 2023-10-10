@@ -1,8 +1,5 @@
 import { UserService } from "../services/index.js";
 import { httpResponse } from "../utils/index.js";
-import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
-import config from "../config/index.js";
 
 export const UserController = {
   getAll: async (req, res) => {
@@ -40,9 +37,6 @@ export const UserController = {
 
   add: async (req, res) => {
     try {
-      const salt = await bcrypt.genSalt();
-      const passwordHash = await bcrypt.hash(req.body.password, salt);
-      req.body.password = passwordHash;
       const data = await UserService.add(req.body);
       return httpResponse.CREATED(res, data);
     } catch (error) {
@@ -53,27 +47,13 @@ export const UserController = {
   loginUser: async (req, res) => {
     try {
       const user = await UserService.login(req.body);
-      if (!user) {
-        return httpResponse.NOT_FOUND(
-          res,
-          "user not found",
-          "check your email"
-        );
-      }
-      const check = await bcrypt.compare(req.body.password, user.password);
-      if (check) {
-        const accessToken = jwt.sign({ user: user }, config.env.jwtSecret);
-        return httpResponse.SUCCESS(res, accessToken);
-      } else {
-        return httpResponse.FORBIDDEN(res, "enter correct password");
-      }
+      return httpResponse.SUCCESS(res, accessToken);
     } catch (error) {
-      return httpResponse.NOT_FOUND(res, "No user exist");
+      return httpResponse.NOT_FOUND(res, error);
     }
   },
   userStream: async (req, res) => {
     try {
-      console.log(req.params.id);
       const data = await UserService.userStream(req.params.id);
       return httpResponse.SUCCESS(res, data);
     } catch (error) {
